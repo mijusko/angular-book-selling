@@ -17,8 +17,14 @@ export class BookService extends RequestBaseService {
     super(authenticationService, http);
   }
 
-  saveBook(book: Book): Observable<any> {
-    return this.http.post(API_URL, book, { headers: this.getHeaders });
+  saveBook(book: Book, imageFile?: File): Observable<any> {
+    const formData: FormData = new FormData();
+    // Dodajemo JSON deo knjige kao Blob
+    formData.append('book', new Blob([JSON.stringify(book)], { type: 'application/json' }));
+    if (imageFile) {
+      formData.append('image', imageFile, imageFile.name);
+    }
+    return this.http.post(API_URL, formData);
   }
 
   deleteBook(book: Book): Observable<any> {

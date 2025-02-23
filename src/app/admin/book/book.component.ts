@@ -13,24 +13,30 @@ declare var $: any;
 export class BookComponent {
 
   errorMessage: string = "";
-
   @Input() book: Book = new Book();
   @Output() save = new EventEmitter<any>();
 
   faBook = faBook;
   faTimes = faTimes;
 
+  // Skladištimo fajl koji korisnik odabere
+  selectedFile: File | null = null;
+
   constructor(private bookService: BookService) { }
 
   saveBook() {
-    this.bookService.saveBook(this.book).subscribe(data => {
+    this.bookService.saveBook(this.book, this.selectedFile ?? undefined).subscribe(data => {
       this.save.emit(data);
       $('#bookModal').modal('hide');
+      // Resetujemo fajl i sliku nakon sačuvavanja
+      this.selectedFile = null;
+      this.book.image = undefined;
     }, err => {
       this.errorMessage = 'Unexpected error occurred.';
       console.log(err);
     });
   }
+
 
   showBookModal() {
     $('#bookModal').modal('show');
@@ -39,17 +45,18 @@ export class BookComponent {
   onFileSelected(event: any) {
     if (event.target.files && event.target.files[0]) {
       const file: File = event.target.files[0];
+      this.selectedFile = file; // sačuvaj fajl za upload
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        // e.target.result je Data URL, iz njega uzimamo samo Base64 deo
-        const base64Result = e.target.result.split(',')[1];
-        this.book.image = base64Result;
+        // Za preview: uzmi Base64 deo Data URL-a
+        this.book.image = e.target.result.split(',')[1];
       };
       reader.readAsDataURL(file);
     }
   }
 
   removeImage() {
+    this.selectedFile = null;
     this.book.image = undefined;
   }
 }
