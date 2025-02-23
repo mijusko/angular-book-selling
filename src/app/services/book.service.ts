@@ -19,13 +19,15 @@ export class BookService extends RequestBaseService {
 
   saveBook(book: Book, imageFile?: File): Observable<any> {
     const formData: FormData = new FormData();
-    // Dodajemo JSON deo knjige kao Blob
     formData.append('book', new Blob([JSON.stringify(book)], { type: 'application/json' }));
     if (imageFile) {
       formData.append('image', imageFile, imageFile.name);
     }
-    return this.http.post(API_URL, formData);
+    // Preuzmite headers, ali uklonite Content-Type jer Angular to postavlja automatski
+    const headers = this.getHeaders.delete('Content-Type');
+    return this.http.post(API_URL, formData, { headers });
   }
+
 
   deleteBook(book: Book): Observable<any> {
     return this.http.delete(`${API_URL}/${book.id}`, { headers: this.getHeaders });
