@@ -3,6 +3,7 @@ import { User } from "./models/user.model";
 import { AuthenticationService } from "./services/authentication.service";
 import { Router } from "@angular/router";
 import { Role } from "./models/role.enum";
+import { faBook } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ import { Role } from "./models/role.enum";
 })
 export class AppComponent {
   title = 'angular-book-seller';
+  faBook = faBook;
 
   currentUser: User = new User;
 

@@ -1,5 +1,6 @@
 export class Book {
     id: number | undefined;
+    image?: string;
     title: string = "";
     author: string = "";
     price: number = 0.0;
