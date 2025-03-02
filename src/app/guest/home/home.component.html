@@ -1,15 +1,32 @@
 <div class="container p-3">
+    <!-- Poruke o greškama i uspehu -->
     <div class="alert alert-danger" *ngIf="errorMessage">
         {{errorMessage}}
     </div>
-
     <div class="alert alert-success" *ngIf="infoMessage">
         {{infoMessage}}
     </div>
 
-    <div class="d-flex flex-wrap">
-        <div *ngFor="let item of bookList; index as ind" class="card m-3"
-            style="width: 300px; background-color: lightgray;">
+    <!-- Red za pretragu i sortiranje -->
+    <div class="row mb-3">
+        <div class="col-md-2"></div>
+        <div class="col-md-5">
+            <input type="text" class="form-control" placeholder="Search books..." [(ngModel)]="searchTerm">
+        </div>
+        <div class="col-md-3">
+            <select class="form-control" [(ngModel)]="sortField">
+                <option value="title">Sort by Title</option>
+                <option value="author">Sort by Author</option>
+                <option value="priceAsc">Sort by Price (Ascending)</option>
+                <option value="priceDesc">Sort by Price (Descending)</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Lista knjiga -->
+    <div class="d-flex justify-content-center flex-wrap just">
+        <div *ngFor="let item of filteredBooks; index as ind" class="card m-3"
+            style="width: 300px; background-color: lightblue;">
             <!-- Ako postoji slika, prikaži je, inače prikaži faBook ikonicu -->
             <ng-container *ngIf="item.image; else defaultIcon">
                 <img [src]="'data:image/jpeg;base64,' + item.image" class="card-img-top" alt="{{item.title}}">
@@ -17,7 +34,6 @@
             <ng-template #defaultIcon>
                 <fa-icon [icon]="faBook" class="ms-auto me-auto book-icon"></fa-icon>
             </ng-template>
-
             <div class="card-body">
                 <h5 class="card-title">{{item.title}}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">
@@ -26,7 +42,7 @@
                 <p class="card-text">
                     {{item.description}}
                 </p>
-                <button (click)="purchase(item)" class="btn w-100 mt-3" style="background-color: mediumseagreen;">
+                <button (click)="purchase(item)" class="btn w-100 mt-3" style="background-color: rgb(22, 131, 209);">
                     Buy
                 </button>
             </div>

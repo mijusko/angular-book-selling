@@ -2,3 +2,10 @@
     font-size: 100px;
     color: orange;
 }
+
+:host {
+    height: 100svh;
+    display: block;
+    background-color: #324c71;
+    border: 1px solid #324c71;
+}

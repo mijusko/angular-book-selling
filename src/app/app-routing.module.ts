@@ -9,14 +9,16 @@ import { NotFoundComponent } from "./error/not-found/not-found.component";
 import { UnauthorizedComponent } from "./error/unauthorized/unauthorized.component";
 import { AuthGuard } from "./guards/auth.guard";
 import { Role } from "./models/role.enum";
+import { LandingComponent } from "./guest/landing/landing.component";
 
 const routes: Routes = [
 
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'landing', pathMatch: 'full' },
 
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'landing', component: LandingComponent },
 
   {
     path: 'profile',

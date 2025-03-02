@@ -8,5 +8,9 @@
 
 .user-icon {
     font-size: 100px;
-    color: #50A057;
+    color: #0066dd;
+}
+
+button {
+    background-color: #0066dd !important;
 }

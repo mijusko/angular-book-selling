@@ -1,0 +1,12 @@
+img.book-logo {
+    max-height: 30px;
+}
+
+a {
+    margin-left: 30px;
+}
+
+a.nav-link.logo {
+    color: #FFFFFF8C !important;
+    font-size: large;
+}

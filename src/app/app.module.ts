@@ -14,6 +14,7 @@ import { UnauthorizedComponent } from './error/unauthorized/unauthorized.compone
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { BookComponent } from './admin/book/book.component';
+import { LandingComponent } from './guest/landing/landing.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { BookComponent } from './admin/book/book.component';
     AdminComponent,
     NotFoundComponent,
     UnauthorizedComponent,
-    BookComponent
+    BookComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,
